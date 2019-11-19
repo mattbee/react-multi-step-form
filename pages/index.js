@@ -1,7 +1,10 @@
 import React from 'react';
+import Layout from '../components/Layout';
 
 const MultiStepForm = () => (
-  <h1>SH:24 Order Journey</h1>
+  <Layout>
+    <p>Order from SH:24</p>
+  </Layout>
 );
 
 export default MultiStepForm;
