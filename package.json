@@ -9,5 +9,8 @@
     "dev": "next",
     "build": "next build",
     "start": "next start"
+  },
+  "devDependencies": {
+    "cypress": "^3.6.1"
   }
 }
