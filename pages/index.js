@@ -3,6 +3,16 @@ import Layout from '../components/Layout';
 import InputWithLabel from '../components/InputWithLabel';
 import Button from '../components/Button';
 
+const nameValid = (name) => {
+  if (name.length < 2) {
+    return 'Name is too short';
+  } else if (name.length >= 25) {
+    return 'Name is too long';
+  }
+
+  return null;
+};
+
 const NAME_STEP = 'name';
 
 const INITIAL_STATE = {
@@ -13,6 +23,7 @@ const INITIAL_STATE = {
     type: 'text',
     error: '',
     value: '',
+    validate: (value) => nameValid(value),
     nextStep: null,
   },
 };
@@ -22,10 +33,12 @@ const MultiStepForm = ({ initialStep = NAME_STEP }) => {
   const [formState, setFormState] = useState(INITIAL_STATE);
 
   const handleChange = (e) => {
+    const currentFormStep = formState[formStep];
     setFormState({
       ...formState,
       [formStep]: {
         ...formState[formStep],
+        error: currentFormStep.validate(e.currentTarget.value),
         value: e.currentTarget.value
       }
     });
@@ -33,6 +46,10 @@ const MultiStepForm = ({ initialStep = NAME_STEP }) => {
 
   const onNext = (e) => {
     e.preventDefault();
+    const value = formState[formStep].value;
+    const error = formState[formStep].validate(value);
+
+    setFormState({ ...formState, [formStep]: { ...formState[formStep], error: error } })
   };
 
   const currentStep = formState[formStep];
