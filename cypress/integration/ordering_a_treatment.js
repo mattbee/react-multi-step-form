@@ -10,5 +10,13 @@ describe('SH:24 Code Test', function() {
     cy.get('input[name=name]')
       .type('Colt Seavers')
       .should('have.value', 'Colt Seavers');
+
+    cy.contains('Next').click();
+
+    cy.contains('What is your email address?');
+
+    cy.get('input[name=email]')
+      .type('colt@thefallguy.com')
+      .should('have.value', 'colt@thefallguy.com');
   });
 })

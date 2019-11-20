@@ -14,6 +14,7 @@ const nameValid = (name) => {
 };
 
 const NAME_STEP = 'name';
+const EMAIL_STEP = 'email';
 
 const INITIAL_STATE = {
   [NAME_STEP]: {
@@ -24,6 +25,16 @@ const INITIAL_STATE = {
     error: '',
     value: '',
     validate: (value) => nameValid(value),
+    nextStep: EMAIL_STEP,
+  },
+  [EMAIL_STEP]: {
+    pageTitle: 'What is your email address?',
+    name: 'email',
+    label: 'Email:',
+    type: 'email',
+    error: '',
+    value: '',
+    validate: (value) => true,
     nextStep: null,
   },
 };
@@ -49,7 +60,11 @@ const MultiStepForm = ({ initialStep = NAME_STEP }) => {
     const value = formState[formStep].value;
     const error = formState[formStep].validate(value);
 
-    setFormState({ ...formState, [formStep]: { ...formState[formStep], error: error } })
+    if(!error) {
+      setFormStep(formState[formStep].nextStep);
+    } else {
+      setFormState({ ...formState, [formStep]: { ...formState[formStep], error: error } })
+    }
   };
 
   const currentStep = formState[formStep];
