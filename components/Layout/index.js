@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import Head from 'next/head'
 import Header from '../Header';
 
+import styles from './layout.module.scss';
+
 const Layout = ({ children }) => (
   <div>
     <Head>
@@ -22,9 +24,10 @@ const Layout = ({ children }) => (
 
     <Header />
 
-    {children}
+    <div class={styles.container}>
+      {children}
+    </div>
   </div>
-
 );
 
 Layout.propTypes = {
