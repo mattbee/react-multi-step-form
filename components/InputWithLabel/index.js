@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from './InputWithLabel.module.scss';
 
 const InputWithLabel = ({
   label,
@@ -20,6 +21,7 @@ const InputWithLabel = ({
         onChange={onChange}
         placeholder={placeholder}
         error={error}
+        className={styles.input}
       />
     </label>
     {error && <div>{error}</div>}
