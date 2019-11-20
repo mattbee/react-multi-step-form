@@ -24,7 +24,7 @@ const Layout = ({ children }) => (
 
     <Header />
 
-    <div class={styles.container}>
+    <div className={styles.container}>
       {children}
     </div>
   </div>
