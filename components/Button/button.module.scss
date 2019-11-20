@@ -6,3 +6,7 @@
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: 1em;
 }
+.wrapper[disabled] {
+  opacity: 0.7;
+  cursor: not-allowed;
+}

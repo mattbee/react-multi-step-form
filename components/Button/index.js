@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './button.module.scss';
 
-const Button = ({ children, onClick }) => (
-  <button className={styles.wrapper} onClick={onClick}>
+const Button = ({ children, onClick, disabled }) => (
+  <button className={styles.wrapper} onClick={onClick} disabled={disabled}>
     {children}
   </button>
 );
