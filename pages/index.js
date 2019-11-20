@@ -25,6 +25,7 @@ const INITIAL_STATE = {
     error: '',
     value: '',
     validate: (value) => nameValid(value),
+    prevStep: null,
     nextStep: EMAIL_STEP,
   },
   [EMAIL_STEP]: {
@@ -35,6 +36,7 @@ const INITIAL_STATE = {
     error: '',
     value: '',
     validate: (value) => true,
+    prevStep: NAME_STEP,
     nextStep: null,
   },
 };
@@ -67,6 +69,11 @@ const MultiStepForm = ({ initialStep = NAME_STEP }) => {
     }
   };
 
+  const onPrev = (e) => {
+    e.preventDefault();
+    setFormStep(formState[formStep].prevStep);
+  };
+
   const currentStep = formState[formStep];
 
   return (
@@ -79,8 +86,8 @@ const MultiStepForm = ({ initialStep = NAME_STEP }) => {
         />
 
         <div style={{ display: 'flex', justifyContent: 'space-between', margin: '2em 0' }}>
-          <Button>Prev</Button>
-          <Button onClick={onNext}>Next</Button>
+          <Button onClick={onPrev} disabled={!currentStep.prevStep}>Prev</Button>
+          <Button onClick={onNext} disabled={!currentStep.nextStep}>Next</Button>
         </div>
       </form>
     </Layout>
