@@ -13,6 +13,17 @@ const nameValid = (name) => {
   return null;
 };
 
+const emailValid = (email) => {
+  const emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  if (email.length == 0) {
+    return 'Please enter your email'
+  } else if (!emailRegex.test(email)) {
+    return 'Please check your email address';
+  }
+
+  return null;
+}
+
 const NAME_STEP = 'name';
 const EMAIL_STEP = 'email';
 
@@ -35,7 +46,7 @@ const INITIAL_STATE = {
     type: 'email',
     error: '',
     value: '',
-    validate: (value) => true,
+    validate: (value) => emailValid(value),
     prevStep: NAME_STEP,
     nextStep: null,
   },
