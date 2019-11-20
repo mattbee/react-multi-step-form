@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import Layout from '../components/Layout';
 import InputWithLabel from '../components/InputWithLabel';
+import RadioButtonsWithLegend from '../components/RadioButtonsWithLegend';
 import Button from '../components/Button';
 import { nameValid, emailValid } from '../helpers/validation';
 
 const NAME_STEP = 'name';
 const EMAIL_STEP = 'email';
+const SERVICE_STEP = 'service';
 
 const INITIAL_STATE = {
   [NAME_STEP]: {
+    component: InputWithLabel,
     pageTitle: 'What is your name?',
     name: 'name',
     label: 'Name:',
@@ -20,6 +23,7 @@ const INITIAL_STATE = {
     nextStep: EMAIL_STEP,
   },
   [EMAIL_STEP]: {
+    component: InputWithLabel,
     pageTitle: 'What is your email address?',
     name: 'email',
     label: 'Email:',
@@ -28,8 +32,24 @@ const INITIAL_STATE = {
     value: '',
     validate: (value) => emailValid(value),
     prevStep: NAME_STEP,
-    nextStep: null,
+    nextStep: SERVICE_STEP,
   },
+  [SERVICE_STEP]: {
+    component: RadioButtonsWithLegend,
+    pageTitle: null,
+    name: 'service',
+    legend: 'What service are you here for?',
+    options: [
+      { label: 'STI Testing', value: 'STI Testing', },
+      { label: 'Contraception', value: 'Contraception', },
+      { label: 'Other', value: 'Other', },
+    ],
+    error: '',
+    value: '',
+    validate: () => true,
+    prevStep: EMAIL_STEP,
+    nextStep: null,
+  }
 };
 
 const MultiStepForm = ({ initialStep = NAME_STEP }) => {
@@ -67,11 +87,13 @@ const MultiStepForm = ({ initialStep = NAME_STEP }) => {
 
   const currentStep = formState[formStep];
 
+  const FormComponent = formState[formStep].component;
+
   return (
     <Layout>
-      <form action="" method="post" style={{ maxWidth: '20em' }}>
-        <h2>{currentStep.pageTitle}</h2>
-        <InputWithLabel
+      <form action="" method="post" style={{ maxWidth: '25em' }}>
+        {currentStep.pageTitle && <h2>{currentStep.pageTitle}</h2>}
+        <FormComponent
           {...currentStep}
           onChange={handleChange}
         />

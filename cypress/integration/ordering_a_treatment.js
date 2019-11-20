@@ -18,5 +18,12 @@ describe('SH:24 Code Test', function() {
     cy.get('input[name=email]')
       .type('colt@thefallguy.com')
       .should('have.value', 'colt@thefallguy.com');
+
+    cy.contains('Next').click();
+
+    cy.get('[type="radio"][name="service"][value="Other"]')
+      .check()
+      .should('have.value', 'Other');
+
   });
 })
